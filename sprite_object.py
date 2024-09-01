@@ -29,7 +29,7 @@ class SpriteObject:
         height_shift = proj_height * self.SPRITE_HEIGHT_SHIFT
         pos = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2 + height_shift
 
-        self.game.ray_casting.objects_to_render.append((self.norm_dist, image, pos))
+        self.game.raycasting.objects_to_render.append((self.norm_dist, image, pos))
 
     def get_sprite(self):
         dx = self.x - self.player.x

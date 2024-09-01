@@ -34,10 +34,9 @@ class RayCasting:
 
     def ray_cast(self):
         self.ray_casting_result = []
+        texture_vert, texture_hor = 1, 1
         ox, oy = self.game.player.pos
         x_map, y_map = self.game.player.map_pos
-
-        texture_vert, texture_hor = 1, 1
 
         ray_angle = self.game.player.angle - HALF_FOV + 0.0001
         for ray in range(NUM_RAYS):
@@ -62,8 +61,7 @@ class RayCasting:
                 y_hor += dy
                 depth_hor += delta_depth
 
-
-            #verticals
+            # verticals
             x_vert, dx = (x_map + 1, 1) if cos_a > 0 else (x_map - 1e-6, -1)
 
             depth_vert = (x_vert - ox) / cos_a
@@ -91,14 +89,13 @@ class RayCasting:
                 x_hor %= 1
                 offset = (1 - x_hor) if sin_a > 0 else x_hor
 
-
-            #remove fish eye effect
+            # remove fishbowl effect
             depth *= math.cos(self.game.player.angle - ray_angle)
 
-            #projection
+            # projection
             proj_height = SCREEN_DIST / (depth + 0.0001)
 
-            #ray casting result
+            # ray casting result
             self.ray_casting_result.append((depth, proj_height, texture, offset))
 
             ray_angle += DELTA_ANGLE
